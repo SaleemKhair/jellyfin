@@ -110,7 +110,7 @@ namespace Emby.Dlna.ContentDirectory
 
             var profile = _dlna.GetProfile(request.Headers) ?? _dlna.GetDefaultProfile();
 
-            var serverAddress = request.RequestedUrl.Substring(0, request.RequestedUrl.IndexOf("/dlna", StringComparison.OrdinalIgnoreCase));
+            var serverAddress = request.Headers.ContainsKey("Host") ? request.Headers.Host.ToString() : request.RequestedUrl.Substring(0, request.RequestedUrl.IndexOf("/dlna/", StringComparison.OrdinalIgnoreCase));
 
             var user = GetUser(profile);
 

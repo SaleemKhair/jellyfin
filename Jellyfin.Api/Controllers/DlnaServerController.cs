@@ -57,7 +57,7 @@ namespace Jellyfin.Api.Controllers
             if (DlnaEntryPoint.Enabled)
             {
                 var url = GetAbsoluteUri();
-                var serverAddress = url.Substring(0, url.IndexOf("/dlna/", StringComparison.OrdinalIgnoreCase));
+                var serverAddress = Request.Headers.ContainsKey("Host") ? Request.Headers.Host.ToString() : url.Substring(0, url.IndexOf("/dlna/", StringComparison.OrdinalIgnoreCase));
                 var xml = _dlnaManager.GetServerDescriptionXml(Request.Headers, serverId, serverAddress);
                 return Ok(xml);
             }
